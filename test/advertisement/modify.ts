@@ -56,7 +56,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
-        id: createResp.response.id,
+        id: createResp.response.data.id,
         startDate: 'INVALID DATE'
       }
     };
@@ -80,7 +80,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
-        id: createResp.response.id,
+        id: createResp.response.data.id,
         endDate: 'INVALID DATE'
       }
     };
@@ -104,7 +104,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
-        id: createResp.response.id,
+        id: createResp.response.data.id,
         startDate: '2010-04-15 09:07:28'
       }
     };
@@ -128,7 +128,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
-        id: createResp.response.id,
+        id: createResp.response.data.id,
         endDate: '2019-04-14 09:07:28'
       }
     };
@@ -152,18 +152,19 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
-        id: createResp.response.id,
+        id: createResp.response.data.id,
         startDate: '2029-04-15 09:07:28',
         endDate: '2029-04-16 09:07:28',
       }
     };
     const resp = await modifyAdvertisement(modifyReq);
     expect(resp.status).to.eq(200);
-    expect(resp.response.message).to.eq(req.body.message);
-    expect(resp.response.url).to.eq(req.body.url);
-    expect(resp.response.category).to.eq(req.body.category);
-    expect(moment(resp.response.startDate).format()).to.eq(moment(modifyReq.body.startDate).format());
-    expect(moment(resp.response.endDate).format()).to.eq(moment(modifyReq.body.endDate).format());
+    expect(resp.response.data).to.exist;
+    expect(resp.response.data.message).to.eq(req.body.message);
+    expect(resp.response.data.url).to.eq(req.body.url);
+    expect(resp.response.data.category).to.eq(req.body.category);
+    expect(moment(resp.response.data.startDate).format()).to.eq(moment(modifyReq.body.startDate).format());
+    expect(moment(resp.response.data.endDate).format()).to.eq(moment(modifyReq.body.endDate).format());
   });
 
   it('Update advertisement with valid params, update all', async () => {
@@ -181,7 +182,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
-        id: createResp.response.id,
+        id: createResp.response.data.id,
         message: 'Advertisement # 6 Updated',
         url: 'www.google.com/?updated=true',
         category: 'test updated',
@@ -191,10 +192,11 @@ describe('Advertisement - modify test', () => {
     };
     const resp = await modifyAdvertisement(modifyReq);
     expect(resp.status).to.eq(200);
-    expect(resp.response.message).to.eq(modifyReq.body.message);
-    expect(resp.response.url).to.eq(modifyReq.body.url);
-    expect(resp.response.category).to.eq(modifyReq.body.category);
-    expect(moment(resp.response.startDate).format()).to.eq(moment(modifyReq.body.startDate).format());
-    expect(moment(resp.response.endDate).format()).to.eq(moment(modifyReq.body.endDate).format());
+    expect(resp.response.data).to.exist;
+    expect(resp.response.data.message).to.eq(modifyReq.body.message);
+    expect(resp.response.data.url).to.eq(modifyReq.body.url);
+    expect(resp.response.data.category).to.eq(modifyReq.body.category);
+    expect(moment(resp.response.data.startDate).format()).to.eq(moment(modifyReq.body.startDate).format());
+    expect(moment(resp.response.data.endDate).format()).to.eq(moment(modifyReq.body.endDate).format());
   });
 });

@@ -54,7 +54,7 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
   dbManager.close();
   return {
     status: 200,
-    response: objectResponse.dataValues
+    response: { data: objectResponse.dataValues }
   };
 };
 
