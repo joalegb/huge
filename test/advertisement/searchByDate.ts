@@ -8,7 +8,7 @@ import { handler as searchByDate } from '../../advertisement/services/searchByDa
 const expect = chai.expect;
 const testHelperObj = new testHelper();
 
-describe('Advertisement - retrieve test', () => {
+describe('Advertisement - searchByDate test', () => {
   before(async () => {
     await testHelperObj.init();
     await testHelperObj.clearAdvertisements();
@@ -18,7 +18,7 @@ describe('Advertisement - retrieve test', () => {
     await testHelperObj.close();
   });
 
-  it('Retrieve advertisement without any date param', async () => {
+  it('searchByDate advertisement without any date param', async () => {
     const req = {
       query: {}
     };
@@ -28,7 +28,7 @@ describe('Advertisement - retrieve test', () => {
     expect(resp.response.error).to.eq('Missing date param');
   });
 
-  it('Retrieve advertisement with invalid startDate param', async () => {
+  it('searchByDate advertisement with invalid startDate param', async () => {
     const req = {
       query: {
         startDate: 'INVALID DATE'
@@ -40,7 +40,7 @@ describe('Advertisement - retrieve test', () => {
     expect(resp.response.error).to.eq('Invalid event Dates');
   });
 
-  it('Retrieve advertisement with invalid endDate param', async () => {
+  it('searchByDate advertisement with invalid endDate param', async () => {
     const req = {
       query: {
         endDate: 'INVALID DATE'
@@ -99,7 +99,7 @@ describe('Advertisement - retrieve test', () => {
     await createAdvertisement(req4);
   });
 
-  it('Retrieve advertisement with startDate param', async () => {
+  it('searchByDate advertisement with startDate param', async () => {
     const req = {
       query: {
         startDate: '2019-04-18 09:07:28'
@@ -114,7 +114,7 @@ describe('Advertisement - retrieve test', () => {
     expect(resp.response.data[1].message).to.eq('Advertisement # 4');
   });
 
-  it('Retrieve advertisement with endDate param', async () => {
+  it('searchByDate advertisement with endDate param', async () => {
     const req = {
       query: {
         endDate: '2019-04-17 09:07:28'
@@ -129,7 +129,7 @@ describe('Advertisement - retrieve test', () => {
     expect(resp.response.data[1].message).to.eq('Advertisement # 2');
   });
 
-  it('Retrieve advertisement with both date params', async () => {
+  it('searchByDate advertisement with both date params', async () => {
     const req = {
       query: {
         startDate: '2019-04-18 09:07:28',

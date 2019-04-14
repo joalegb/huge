@@ -28,7 +28,7 @@ describe('Advertisement - delete test', () => {
     expect(resp.response.error).to.eq('Missing id param');
   });
 
-  it('Retrieve missing advertisement', async () => {
+  it('Delete missing advertisement', async () => {
     const req = {
       body: {
         id: 1

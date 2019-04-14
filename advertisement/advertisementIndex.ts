@@ -7,6 +7,7 @@ import { handler as create } from './services/create';
 import { handler as modify } from './services/modify';
 import { handler as deleteAdv } from './services/delete';
 import { handler as searchByDate } from './services/searchByDate';
+import { handler as searchByCategory } from './services/searchByCategory';
 
 const app = express();
 
@@ -25,6 +26,11 @@ app.get('/advertisement', async (req, res) => {
 
 app.get('/advertisement/searchByDate', async (req, res) => {
   const result = await searchByDate(req);
+  return res.status(result.status).send(result.response);
+});
+
+app.get('/advertisement/searchByCategory', async (req, res) => {
+  const result = await searchByCategory(req);
   return res.status(result.status).send(result.response);
 });
 
