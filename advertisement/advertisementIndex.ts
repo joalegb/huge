@@ -27,7 +27,7 @@ app.post('/advertisement', parseBody, async (req, res) => {
   return res.status(result.status).send(result.response);
 });
 
-app.put('/advertisement', async (req, res) => {
+app.put('/advertisement', parseBody, async (req, res) => {
   const result = await modify(req);
   return res.status(result.status).send(result.response);
 });

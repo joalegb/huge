@@ -47,7 +47,7 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
     return {
       status: 500,
       response: {
-        error: `Internal error`
+        error: `Error creating advertisement`
       }
     };
   }

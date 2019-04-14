@@ -1,12 +1,21 @@
 
 import * as chai from 'chai';
 import * as moment from 'moment';
-
+import testHelper from '../lib/testHelper';
 import { handler as createAdvertisement } from '../../advertisement/services/create';
 
 const expect = chai.expect;
+const testHelperObj = new testHelper();
 
 describe('Advertisement - create test', () => {
+  before(async () => {
+    await testHelperObj.init();
+    await testHelperObj.clearAdvertisements();
+  });
+
+  after(async () => {
+    await testHelperObj.close();
+  });
 
   it('Save advertisement without message param', async () => {
     const req = {
@@ -149,11 +158,11 @@ describe('Advertisement - create test', () => {
 
     const resp = await createAdvertisement(req);
     expect(resp.status).to.eq(200);
-    expect(resp.response.message).to.eq('Advertisement # 1');
-    expect(resp.response.url).to.eq('www.google.com');
-    expect(resp.response.category).to.eq('test');
-    expect(moment(resp.response.startDate).format()).to.eq(moment('2019-04-15 09:07:28').format());
-    expect(moment(resp.response.endDate).format()).to.eq(moment('2019-04-16 09:07:28').format());
+    expect(resp.response.message).to.eq(req.body.message);
+    expect(resp.response.url).to.eq(req.body.url);
+    expect(resp.response.category).to.eq(req.body.category);
+    expect(moment(resp.response.startDate).format()).to.eq(moment(req.body.startDate).format());
+    expect(moment(resp.response.endDate).format()).to.eq(moment(req.body.endDate).format());
   });
 
 });
