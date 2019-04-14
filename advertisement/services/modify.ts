@@ -89,7 +89,7 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
   dbManager.close();
   return {
     status: 200,
-    response: updatedObject
+    response: { data: updatedObject }
   };
 };
 

@@ -158,11 +158,12 @@ describe('Advertisement - create test', () => {
 
     const resp = await createAdvertisement(req);
     expect(resp.status).to.eq(200);
-    expect(resp.response.message).to.eq(req.body.message);
-    expect(resp.response.url).to.eq(req.body.url);
-    expect(resp.response.category).to.eq(req.body.category);
-    expect(moment(resp.response.startDate).format()).to.eq(moment(req.body.startDate).format());
-    expect(moment(resp.response.endDate).format()).to.eq(moment(req.body.endDate).format());
+    expect(resp.response.data).to.exist;
+    expect(resp.response.data.message).to.eq(req.body.message);
+    expect(resp.response.data.url).to.eq(req.body.url);
+    expect(resp.response.data.category).to.eq(req.body.category);
+    expect(moment(resp.response.data.startDate).format()).to.eq(moment(req.body.startDate).format());
+    expect(moment(resp.response.data.endDate).format()).to.eq(moment(req.body.endDate).format());
   });
 
 });

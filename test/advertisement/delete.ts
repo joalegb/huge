@@ -55,7 +55,7 @@ describe('Advertisement - delete test', () => {
 
     const retrieveReq = {
       body: {
-        id: createResp.response.id
+        id: createResp.response.data.id
       }
     };
     const resp = await deleteAdvertisement(retrieveReq);
