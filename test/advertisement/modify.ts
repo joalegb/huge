@@ -9,7 +9,7 @@ import { handler as modifyAdvertisement } from '../../advertisement/services/mod
 const expect = chai.expect;
 const testHelperObj = new testHelper();
 
-describe('Advertisement - create test', () => {
+describe('Advertisement - modify test', () => {
   before(async () => {
     await testHelperObj.init();
     await testHelperObj.clearAdvertisements();
