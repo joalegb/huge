@@ -1,0 +1,53 @@
+service: DatosEnterpriseMicroServices
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: ${opt:stage,'dev'}
+  timeout: 30
+  deploymentBucket:
+    name: com.serverless.${self:provider.stage}.deployment
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:InvokeFunction
+      Resource: "*"
+
+  environment:
+    CRYPTO_SECRET_STRING: ${self:custom.crypto_secret_string.${self:provider.stage}}
+custom:
+  stages:
+    - test
+    - local
+    - qa
+    - prod
+  allowed-headers:
+    - Auth-Token
+  crypto_secret_string:
+    test: qwertyuiop1234567890
+    local: qwertyuiop1234567890
+    qa: ${env:QA_CRYPTO_SECRET_STRING}
+    prod: ${env:PROD_CRYPTO_SECRET_STRING}
+
+package:
+  exclude:
+    - test/**
+    - coverage/**
+
+# Functions
+functions:
+  user:
+    handler: advertisement/advertisementIndex.handler
+    events:
+      - http:
+          path: 'advertisement/{proxy+}'
+          method: any
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Auth-Token
+
+plugins:
+  - serverless-offline
+  - serverless-mocha-plugin
