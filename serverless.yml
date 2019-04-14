@@ -15,19 +15,31 @@ provider:
 
   environment:
     CRYPTO_SECRET_STRING: ${self:custom.crypto_secret_string.${self:provider.stage}}
+    MYSQL_DB_NAME: ${self:custom.mysql_db_name.${self:provider.stage}}
+    MYSQL_DB_USERNAME: ${self:custom.mysql_db_username.${self:provider.stage}}
+    MYSQL_DB_PASSWORD: ${self:custom.mysql_db_password.${self:provider.stage}}
+    MYSQL_DB_HOST: ${self:custom.mysql_db_host.${self:provider.stage}}
 custom:
   stages:
     - test
     - local
-    - qa
-    - prod
   allowed-headers:
     - Auth-Token
   crypto_secret_string:
     test: qwertyuiop1234567890
     local: qwertyuiop1234567890
-    qa: ${env:QA_CRYPTO_SECRET_STRING}
-    prod: ${env:PROD_CRYPTO_SECRET_STRING}
+  mysql_db_name:
+    test: test
+    local: local
+  mysql_db_username:
+    test: root
+    local: root
+  mysql_db_password:
+    test: root
+    local: root
+  mysql_db_host:
+    test: localhost
+    local: localhost
 
 package:
   exclude:

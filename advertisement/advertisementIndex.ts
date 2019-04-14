@@ -1,6 +1,7 @@
 import * as serverless from 'serverless-http';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
+import { parseBody } from '../lib/parser';
 import { handler as retrieve } from './services/retrieve';
 import { handler as create } from './services/create';
 import { handler as modify } from './services/modify';
@@ -21,7 +22,7 @@ app.get('/advertisement', async (req, res) => {
   return res.status(result.status).send(result.response);
 });
 
-app.post('/advertisement', async (req, res) => {
+app.post('/advertisement', parseBody, async (req, res) => {
   const result = await create(req);
   return res.status(result.status).send(result.response);
 });
