@@ -32,7 +32,7 @@ app.put('/advertisement', parseBody, async (req, res) => {
   return res.status(result.status).send(result.response);
 });
 
-app.delete('/advertisement', async (req, res) => {
+app.delete('/advertisement', parseBody, async (req, res) => {
   const result = await deleteAdv(req);
   return res.status(result.status).send(result.response);
 });
