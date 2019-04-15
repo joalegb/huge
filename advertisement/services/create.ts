@@ -36,6 +36,7 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
   try {
     objectResponse = await advModel.create({
       id: '',
+      userId: event.body.userId,
       message,
       url,
       category,

@@ -7,11 +7,15 @@ import { handler as searchByDate } from '../../advertisement/services/searchByDa
 
 const expect = chai.expect;
 const testHelperObj = new testHelper();
+let userId: number;
 
 describe('Advertisement - searchByDate test', () => {
   before(async () => {
     await testHelperObj.init();
     await testHelperObj.clearAdvertisements();
+    await testHelperObj.clearUsers();
+    const userResponse = await testHelperObj.createUser();
+    userId = userResponse.response.data.id;
   });
 
   after(async () => {
@@ -55,6 +59,7 @@ describe('Advertisement - searchByDate test', () => {
   it('Create Test Advertisements', async () => {
     const req1 = {
       body: {
+        userId,
         message: 'Advertisement # 1',
         url: 'www.google.com',
         category: 'test',
@@ -65,6 +70,7 @@ describe('Advertisement - searchByDate test', () => {
 
     const req2 = {
       body: {
+        userId,
         message: 'Advertisement # 2',
         url: 'www.google.com',
         category: 'test',
@@ -75,6 +81,7 @@ describe('Advertisement - searchByDate test', () => {
 
     const req3 = {
       body: {
+        userId,
         message: 'Advertisement # 3',
         url: 'www.google.com',
         category: 'test',
@@ -85,6 +92,7 @@ describe('Advertisement - searchByDate test', () => {
 
     const req4 = {
       body: {
+        userId,
         message: 'Advertisement # 4',
         url: 'www.google.com',
         category: 'test',
@@ -102,6 +110,7 @@ describe('Advertisement - searchByDate test', () => {
   it('searchByDate advertisement with startDate param', async () => {
     const req = {
       query: {
+        userId,
         startDate: '2019-04-18 09:07:28'
       }
     };
@@ -117,6 +126,7 @@ describe('Advertisement - searchByDate test', () => {
   it('searchByDate advertisement with endDate param', async () => {
     const req = {
       query: {
+        userId,
         endDate: '2019-04-17 09:07:28'
       }
     };
@@ -132,6 +142,7 @@ describe('Advertisement - searchByDate test', () => {
   it('searchByDate advertisement with both date params', async () => {
     const req = {
       query: {
+        userId,
         startDate: '2019-04-18 09:07:28',
         endDate: '2019-04-19 09:07:28'
       }

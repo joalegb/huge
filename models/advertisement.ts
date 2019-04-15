@@ -9,12 +9,12 @@ function getAdvertisementModel(dbManagerObj: DBManager) {
       primaryKey: true,
       autoIncrement: true
     },
+    userId: Sequelize.INTEGER,
     message: Sequelize.STRING,
     url: Sequelize.STRING,
     category: Sequelize.STRING,
     startDate: Sequelize.DATE,
     endDate: Sequelize.DATE
-
   },
     {
       timestamps: false,

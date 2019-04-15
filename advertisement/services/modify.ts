@@ -20,7 +20,13 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
   let advertisement: Advertisement;
 
   try {
-    advertisement = await advModel.findOne({ where: { id: event.body.id }, raw: true }) as Advertisement;
+    advertisement = await advModel.findOne({
+      where: {
+        id: event.body.id,
+        userId: event.body.userId
+      },
+      raw: true
+    }) as Advertisement;
   } catch (error) /* istanbul ignore next */ {
     dbManager.close();
     return {
@@ -62,7 +68,12 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
       category: event.body.category || advertisement.category,
       startDate,
       endDate
-    }, { where: { id: event.body.id } });
+    }, {
+        where: {
+          id: event.body.id,
+          userId: event.body.userId
+        }
+      });
   } catch (error) /* istanbul ignore next */ {
     dbManager.close();
     return {
@@ -75,7 +86,12 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
 
   let updatedObject: Advertisement;
   try {
-    updatedObject = await advModel.findOne({ where: { id: event.body.id }, raw: true }) as Advertisement;
+    updatedObject = await advModel.findOne({
+      where: {
+        id: event.body.id,
+        userId: event.body.userId
+      },
+      raw: true }) as Advertisement;
   } catch (error) /* istanbul ignore next */ {
     dbManager.close();
     return {

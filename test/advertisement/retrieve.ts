@@ -8,11 +8,15 @@ import { handler as retrieveAdvertisement } from '../../advertisement/services/r
 
 const expect = chai.expect;
 const testHelperObj = new testHelper();
+let userId: number;
 
 describe('Advertisement - retrieve test', () => {
   before(async () => {
     await testHelperObj.init();
     await testHelperObj.clearAdvertisements();
+    await testHelperObj.clearUsers();
+    const userResponse = await testHelperObj.createUser();
+    userId = userResponse.response.data.id;
   });
 
   after(async () => {
@@ -44,6 +48,7 @@ describe('Advertisement - retrieve test', () => {
   it('Retrieve valid advertisement', async () => {
     const req = {
       body: {
+        userId,
         message: 'Advertisement # 1',
         url: 'www.google.com',
         category: 'test',
@@ -56,6 +61,7 @@ describe('Advertisement - retrieve test', () => {
 
     const retrieveReq = {
       query: {
+        userId,
         id: createResp.response.data.id
       }
     };
