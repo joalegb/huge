@@ -8,10 +8,14 @@ import { handler as deleteAdvertisement } from '../../advertisement/services/del
 const expect = chai.expect;
 const testHelperObj = new testHelper();
 
+let userId: number;
+
 describe('Advertisement - delete test', () => {
   before(async () => {
     await testHelperObj.init();
     await testHelperObj.clearAdvertisements();
+    const userResponse = await testHelperObj.createUser();
+    userId = userResponse.response.data.id;
   });
 
   after(async () => {
@@ -20,7 +24,8 @@ describe('Advertisement - delete test', () => {
 
   it('Delete advertisement without id param', async () => {
     const req = {
-      body: {}
+      body: {
+      }
     };
 
     const resp = await deleteAdvertisement(req);
@@ -31,7 +36,7 @@ describe('Advertisement - delete test', () => {
   it('Delete missing advertisement', async () => {
     const req = {
       body: {
-        id: 1
+        id: 1,
       }
     };
 
@@ -43,6 +48,7 @@ describe('Advertisement - delete test', () => {
   it('Delete valid advertisement', async () => {
     const req = {
       body: {
+        userId,
         message: 'Advertisement # 1',
         url: 'www.google.com',
         category: 'test',
@@ -52,13 +58,13 @@ describe('Advertisement - delete test', () => {
     };
 
     const createResp = await createAdvertisement(req);
-
-    const retrieveReq = {
+    const deleteReq = {
       body: {
-        id: createResp.response.data.id
+        id: createResp.response.data.id,
+        userId
       }
     };
-    const resp = await deleteAdvertisement(retrieveReq);
+    const resp = await deleteAdvertisement(deleteReq);
     expect(resp.status).to.eq(200);
     expect(resp.response.message).to.eq('Advertisement deleted');
   });

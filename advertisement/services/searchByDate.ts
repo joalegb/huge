@@ -34,7 +34,9 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
   dbManager.open();
   const advModel = getAdvertisementModel(dbManager);
   let advertisements: Advertisement[];
-  const where: Obj = {};
+  const where: Obj = {
+    userId: event.query.userId
+  };
 
   if (startDate) {
     where.startDate = {
@@ -49,7 +51,10 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
   }
 
   try {
-    advertisements = await advModel.findAll({ where, raw: true }) as Advertisement[];
+    advertisements = await advModel.findAll({
+      where,
+      raw: true
+    }) as Advertisement[];
   } catch (error) /* istanbul ignore next */ {
     dbManager.close();
     return {

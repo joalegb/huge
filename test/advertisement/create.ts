@@ -7,10 +7,15 @@ import { handler as createAdvertisement } from '../../advertisement/services/cre
 const expect = chai.expect;
 const testHelperObj = new testHelper();
 
+let userId: number;
+
 describe('Advertisement - create test', () => {
   before(async () => {
     await testHelperObj.init();
     await testHelperObj.clearAdvertisements();
+    await testHelperObj.clearUsers();
+    const userResponse = await testHelperObj.createUser();
+    userId = userResponse.response.data.id;
   });
 
   after(async () => {
@@ -19,7 +24,8 @@ describe('Advertisement - create test', () => {
 
   it('Save advertisement without message param', async () => {
     const req = {
-      body: {}
+      body: {
+      }
     };
 
     const resp = await createAdvertisement(req);
@@ -148,6 +154,7 @@ describe('Advertisement - create test', () => {
   it('Save advertisement with all params valid', async () => {
     const req = {
       body: {
+        userId,
         message: 'Advertisement # 1',
         url: 'www.google.com',
         category: 'test',

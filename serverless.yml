@@ -48,12 +48,24 @@ package:
 
 # Functions
 functions:
-  user:
+  advertisement:
     handler: advertisement/advertisementIndex.handler
     events:
       - http:
           path: 'advertisement/{proxy+}'
           method: any
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - Auth-Token
+
+  util:
+    handler: util/utilIndex.handler
+    events:
+      - http:
+          path: 'util/{proxy+}'
+          method: POST
           cors:
             origin: '*'
             headers:

@@ -8,11 +8,15 @@ import { handler as modifyAdvertisement } from '../../advertisement/services/mod
 
 const expect = chai.expect;
 const testHelperObj = new testHelper();
+let userId: number;
 
 describe('Advertisement - modify test', () => {
   before(async () => {
     await testHelperObj.init();
     await testHelperObj.clearAdvertisements();
+    await testHelperObj.clearUsers();
+    const userResponse = await testHelperObj.createUser();
+    userId = userResponse.response.data.id;
   });
 
   after(async () => {
@@ -32,6 +36,7 @@ describe('Advertisement - modify test', () => {
   it('Update missing advertisement', async () => {
     const req = {
       body: {
+        userId,
         id: 1
       }
     };
@@ -44,6 +49,7 @@ describe('Advertisement - modify test', () => {
   it('Update advertisement with invalid startDate param', async () => {
     const req = {
       body: {
+        userId,
         message: 'Advertisement # 1',
         url: 'www.google.com',
         category: 'test',
@@ -56,6 +62,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
+        userId,
         id: createResp.response.data.id,
         startDate: 'INVALID DATE'
       }
@@ -68,6 +75,7 @@ describe('Advertisement - modify test', () => {
   it('Update advertisement with invalid endDate param', async () => {
     const req = {
       body: {
+        userId,
         message: 'Advertisement # 2',
         url: 'www.google.com',
         category: 'test',
@@ -80,6 +88,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
+        userId,
         id: createResp.response.data.id,
         endDate: 'INVALID DATE'
       }
@@ -92,6 +101,7 @@ describe('Advertisement - modify test', () => {
   it('Update advertisement with old startDate param', async () => {
     const req = {
       body: {
+        userId,
         message: 'Advertisement # 3',
         url: 'www.google.com',
         category: 'test',
@@ -104,6 +114,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
+        userId,
         id: createResp.response.data.id,
         startDate: '2010-04-15 09:07:28'
       }
@@ -116,6 +127,7 @@ describe('Advertisement - modify test', () => {
   it('Update advertisement with endDate before original startDate', async () => {
     const req = {
       body: {
+        userId,
         message: 'Advertisement # 4',
         url: 'www.google.com',
         category: 'test',
@@ -128,6 +140,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
+        userId,
         id: createResp.response.data.id,
         endDate: '2019-04-14 09:07:28'
       }
@@ -140,6 +153,7 @@ describe('Advertisement - modify test', () => {
   it('Update advertisement with valid params, update dates', async () => {
     const req = {
       body: {
+        userId,
         message: 'Advertisement # 5',
         url: 'www.google.com',
         category: 'test',
@@ -152,6 +166,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
+        userId,
         id: createResp.response.data.id,
         startDate: '2029-04-15 09:07:28',
         endDate: '2029-04-16 09:07:28',
@@ -170,6 +185,7 @@ describe('Advertisement - modify test', () => {
   it('Update advertisement with valid params, update all', async () => {
     const req = {
       body: {
+        userId,
         message: 'Advertisement # 6',
         url: 'www.google.com',
         category: 'test',
@@ -182,6 +198,7 @@ describe('Advertisement - modify test', () => {
 
     const modifyReq = {
       body: {
+        userId,
         id: createResp.response.data.id,
         message: 'Advertisement # 6 Updated',
         url: 'www.google.com/?updated=true',

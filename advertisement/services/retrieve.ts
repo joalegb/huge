@@ -19,7 +19,13 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
   let advertisement: Advertisement;
 
   try {
-    advertisement = await advModel.findOne({ where: { id: event.query.id }, raw: true }) as Advertisement;
+    advertisement = await advModel.findOne({
+      where: {
+        id: event.query.id,
+        userId: event.query.userId
+      },
+      raw: true
+    }) as Advertisement;
   } catch (error) /* istanbul ignore next */ {
     dbManager.close();
     return {

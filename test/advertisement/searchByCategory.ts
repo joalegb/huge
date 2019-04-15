@@ -7,11 +7,15 @@ import { handler as searchByCategory } from '../../advertisement/services/search
 
 const expect = chai.expect;
 const testHelperObj = new testHelper();
+let userId: number;
 
 describe('Advertisement - searchByCategory test', () => {
   before(async () => {
     await testHelperObj.init();
     await testHelperObj.clearAdvertisements();
+    await testHelperObj.clearUsers();
+    const userResponse = await testHelperObj.createUser();
+    userId = userResponse.response.data.id;
   });
 
   after(async () => {
@@ -31,6 +35,7 @@ describe('Advertisement - searchByCategory test', () => {
   it('Create Test Advertisements', async () => {
     const req1 = {
       body: {
+        userId,
         message: 'Advertisement # 1',
         url: 'www.google.com',
         category: 'category 1',
@@ -41,6 +46,7 @@ describe('Advertisement - searchByCategory test', () => {
 
     const req2 = {
       body: {
+        userId,
         message: 'Advertisement # 2',
         url: 'www.google.com',
         category: 'category 1',
@@ -51,6 +57,7 @@ describe('Advertisement - searchByCategory test', () => {
 
     const req3 = {
       body: {
+        userId,
         message: 'Advertisement # 3',
         url: 'www.google.com',
         category: 'category 2',
@@ -61,6 +68,7 @@ describe('Advertisement - searchByCategory test', () => {
 
     const req4 = {
       body: {
+        userId,
         message: 'Advertisement # 4',
         url: 'www.google.com',
         category: 'category 3',
@@ -78,6 +86,7 @@ describe('Advertisement - searchByCategory test', () => {
   it('searchByCategory advertisement with category 1 param', async () => {
     const req = {
       query: {
+        userId,
         category: 'category 1'
       }
     };
@@ -93,6 +102,7 @@ describe('Advertisement - searchByCategory test', () => {
   it('searchByCategory advertisement with category param with no items', async () => {
     const req = {
       query: {
+        userId,
         category: 'category x'
       }
     };

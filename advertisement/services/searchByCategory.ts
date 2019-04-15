@@ -20,8 +20,12 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
 
   try {
     advertisements = await advModel.findAll({
-      where: { category: event.query.category },
-      raw: true }) as Advertisement[];
+      where: {
+        category: event.query.category,
+        userId: event.query.userId
+      },
+      raw: true
+    }) as Advertisement[];
   } catch (error) /* istanbul ignore next */ {
     dbManager.close();
     return {
