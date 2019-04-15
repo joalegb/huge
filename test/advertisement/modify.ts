@@ -53,8 +53,8 @@ describe('Advertisement - modify test', () => {
         message: 'Advertisement # 1',
         url: 'www.google.com',
         category: 'test',
-        startDate: '2019-04-15 09:07:28',
-        endDate: '2019-04-16 09:07:28',
+        startDate: '2020-04-15 09:07:28',
+        endDate: '2020-04-16 09:07:28',
       }
     };
 
@@ -79,8 +79,8 @@ describe('Advertisement - modify test', () => {
         message: 'Advertisement # 2',
         url: 'www.google.com',
         category: 'test',
-        startDate: '2019-04-15 09:07:28',
-        endDate: '2019-04-16 09:07:28',
+        startDate: '2020-04-15 09:07:28',
+        endDate: '2020-04-16 09:07:28',
       }
     };
 
@@ -105,8 +105,8 @@ describe('Advertisement - modify test', () => {
         message: 'Advertisement # 3',
         url: 'www.google.com',
         category: 'test',
-        startDate: '2019-04-15 09:07:28',
-        endDate: '2019-04-16 09:07:28',
+        startDate: '2020-04-15 09:07:28',
+        endDate: '2020-04-16 09:07:28',
       }
     };
 
@@ -131,8 +131,8 @@ describe('Advertisement - modify test', () => {
         message: 'Advertisement # 4',
         url: 'www.google.com',
         category: 'test',
-        startDate: '2019-04-15 09:07:28',
-        endDate: '2019-04-16 09:07:28',
+        startDate: '2020-04-15 09:07:28',
+        endDate: '2020-04-16 09:07:28',
       }
     };
 
@@ -157,8 +157,8 @@ describe('Advertisement - modify test', () => {
         message: 'Advertisement # 5',
         url: 'www.google.com',
         category: 'test',
-        startDate: '2019-04-15 09:07:28',
-        endDate: '2019-04-16 09:07:28',
+        startDate: '2020-04-15 09:07:28',
+        endDate: '2020-04-16 09:07:28',
       }
     };
 
@@ -189,8 +189,8 @@ describe('Advertisement - modify test', () => {
         message: 'Advertisement # 6',
         url: 'www.google.com',
         category: 'test',
-        startDate: '2019-04-15 09:07:28',
-        endDate: '2019-04-16 09:07:28',
+        startDate: '2020-04-15 09:07:28',
+        endDate: '2020-04-16 09:07:28',
       }
     };
 

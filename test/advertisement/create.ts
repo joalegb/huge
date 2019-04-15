@@ -158,8 +158,8 @@ describe('Advertisement - create test', () => {
         message: 'Advertisement # 1',
         url: 'www.google.com',
         category: 'test',
-        startDate: '2019-04-15 09:07:28',
-        endDate: '2019-04-16 09:07:28',
+        startDate: '2020-04-15 09:07:28',
+        endDate: '2020-04-16 09:07:28',
       }
     };
 
