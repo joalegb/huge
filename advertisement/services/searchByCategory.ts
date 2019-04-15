@@ -3,7 +3,7 @@ import validate from '../../lib/validate';
 import { getAdvertisementModel } from '../../models';
 
 const handler = async (event: Obj): Promise<HandlerResponse> => {
-  const missingParam = validate(['id'], event.query);
+  const missingParam = validate(['category'], event.query);
   if (missingParam) {
     return {
       status: 400,
@@ -16,16 +16,16 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
   const dbManager = new DBManager();
   dbManager.open();
   const advModel = getAdvertisementModel(dbManager);
-  let advertisement: Advertisement;
+  let advertisements: Advertisement[];
 
   try {
-    advertisement = await advModel.findOne({
+    advertisements = await advModel.findAll({
       where: {
-        id: event.query.id,
+        category: event.query.category,
         userId: event.query.userId
       },
       raw: true
-    }) as Advertisement;
+    }) as Advertisement[];
   } catch (error) /* istanbul ignore next */ {
     dbManager.close();
     return {
@@ -38,18 +38,9 @@ const handler = async (event: Obj): Promise<HandlerResponse> => {
 
   dbManager.close();
 
-  if (!advertisement) {
-    return {
-      status: 404,
-      response: {
-        error: `Advertisement ${event.query.id} not found`
-      }
-    };
-  }
-
   return {
     status: 200,
-    response: { data: advertisement }
+    response: { data: advertisements }
   };
 };
 
